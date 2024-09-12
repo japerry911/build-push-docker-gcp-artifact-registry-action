@@ -1,4 +1,4 @@
-name: build_push_docker_artifact_registry
+name: build-push-docker-gcp-artifact-registry-action
 description: Build and push a Docker image to Google Cloud Artifact Registry
 
 inputs:
