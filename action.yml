@@ -9,6 +9,10 @@ inputs:
   docker_target:
     description: "Docker target stage."
     required: true
+
+  tags:
+    description: "Docker image tags"
+    required: true
   
   env_str:
     description: "Comma-separated key-value pairs that will be exported in docker build-args command."
