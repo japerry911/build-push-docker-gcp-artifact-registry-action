@@ -23,6 +23,7 @@ runs:
   using: composite
   steps:
     - name: Parse and Build env exports
+      shell: bash
       run: |
         combined_args="${{ inputs.combined_args }}"
 
