@@ -25,7 +25,7 @@ runs:
     - name: Parse and Build env exports
       shell: bash
       run: |
-        combined_args="${{ inputs.combined_args }}"
+        combined_args="${{ inputs.env_str }}"
 
         # Split the string into an array, using commas as the delimiter
         IFS=',' read -r -a args_array <<< "$combined_args"
@@ -37,7 +37,7 @@ runs:
           build_args="$build_args $arg"
         done
 
-        echo "build_args=$build_args" >> $GITHUB_ENV
+        echo "$build_args" >> $GITHUB_ENV
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
