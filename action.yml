@@ -27,15 +27,38 @@ runs:
       run: |
         combined_args="${{ inputs.env_str }}"
 
-        # Split the string into an array, using commas as the delimiter
-        IFS=',' read -r -a args_array <<< "$combined_args"
+        # Function to parse the input string
+        parse_args() {
+            local input="$1"
+            local args=()
+            local current=""
+            local in_quotes=false
+        
+            for (( i=0; i<${#input}; i++ )); do
+                char="${input:$i:1}"
+                if [[ $char == '"' ]]; then
+                    in_quotes=!$in_quotes
+                elif [[ $char == ',' && $in_quotes == false ]]; then
+                    args+=("$current")
+                    current=""
+                else
+                    current+="$char"
+                fi
+            done
+        
+            # Add the last argument
+            if [[ -n $current ]]; then
+                args+=("$current")
+            fi
+        
+            # Print arguments
+            for arg in "${args[@]}"; do
+                echo -n "${arg# } "  # Trim leading space and add trailing space
+            done
+        }
 
-        build_args=""
-
-        # Iterate over the array and append each key-value pair to build_args
-        for arg in "${args_array[@]}"; do
-          build_args="$build_args $arg"
-        done
+        # Call the function and store the result
+        build_args=$(parse_args "$combined_args")
 
         echo "$build_args" >> $GITHUB_ENV
     - name: Authenticate to Google Cloud
