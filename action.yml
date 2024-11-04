@@ -14,30 +14,14 @@ inputs:
     description: "Docker image tags"
     required: true
   
-  env_str:
-    description: "Comma-separated key-value pairs that will be exported in docker build-args command."
+  build_args:
+    description: "Key-value pairs that will be exported in docker build-args command."
     required: false
     default: ""
 
 runs:
   using: composite
   steps:
-    - name: Parse and Build env exports
-      shell: bash
-      run: |
-        combined_args="${{ inputs.combined_args }}"
-
-        # Split the string into an array, using commas as the delimiter
-        IFS=',' read -r -a args_array <<< "$combined_args"
-
-        build_args=""
-
-        # Iterate over the array and append each key-value pair to build_args
-        for arg in "${args_array[@]}"; do
-          build_args="$build_args $arg"
-        done
-
-        echo "build_args=$build_args" >> $GITHUB_ENV
     - name: Authenticate to Google Cloud
       uses: google-github-actions/auth@v2
       with:
@@ -57,7 +41,7 @@ runs:
         file: Dockerfile
         target: ${{ inputs.docker_target }}
         push: true
-        build-args: ${{ env.build_args }}
+        build-args: ${{ inputs.build_args }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
         tags: ${{ inputs.tags }}
