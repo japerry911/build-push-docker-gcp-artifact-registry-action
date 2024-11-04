@@ -18,7 +18,7 @@ This action's job is to build a Docker image, and then push it to GCP's Artifact
 
 - This is the full image name/tag to give Docker image.
 
-##### env_str
+##### build_args
 
-- This is a comma separated list of key=value pairs. These key, value pairs are utilized as `build-args`.
+- Key-value pairs that will be exported in docker build-args command.
 
