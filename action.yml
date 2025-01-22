@@ -6,6 +6,11 @@ inputs:
     description: "Google Cloud Service Account JSON, it is recommended to feed this with a GitHub secret value."
     required: true
 
+  dockerfile_path:
+    description: "Path to the Dockerfile."
+    required: true
+    default: "Dockerfile"
+
   docker_target:
     description: "Docker target stage."
     required: true
@@ -34,7 +39,7 @@ runs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: Dockerfile
+        file: ${{ inputs.dockerfile_path }}
         target: ${{ inputs.docker_target }}
         push: true
         build-args: ${{ inputs.build_args }}
