@@ -10,6 +10,10 @@ This action's job is to build a Docker image, and then push it to GCP's Artifact
 
 - This is the GCP Credentials JSON. It is recommended to store the value feeding this input in GitHub secrets.
 
+##### dockerfile_path
+
+- This is the path to the Dockerfile.
+
 ##### docker_target
 
 - This is the specified Docker target for Docker build command.
