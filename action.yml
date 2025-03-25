@@ -24,6 +24,11 @@ inputs:
     required: false
     default: ""
 
+  enable_cache:
+    description: 'Enable Docker build caching'
+    required: false
+    default: 'true' 
+
 runs:
   using: composite
   steps:
@@ -43,6 +48,6 @@ runs:
         target: ${{ inputs.docker_target }}
         push: true
         build-args: ${{ inputs.build_args }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
+        cache-from: ${{ inputs.enable_cache == 'true' && 'type=gha' || '' }}
+        cache-to: ${{ inputs.enable_cache == 'true' && 'type=gha,mode=max' || '' }}
         tags: ${{ inputs.tags }}
