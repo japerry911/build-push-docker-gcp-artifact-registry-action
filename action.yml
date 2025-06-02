@@ -43,6 +43,9 @@ inputs:
 
 runs:
   using: composite
+  permissions:
+    contents: read
+    id-token: write
   steps:
     - name: Authenticate to Google Cloud using Workload Identity
       if: ${{ inputs.gcp_credentials_json == '' }}
