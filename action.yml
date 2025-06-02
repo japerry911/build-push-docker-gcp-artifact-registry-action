@@ -27,12 +27,12 @@ inputs:
     default: ""
 
   workload_identity_provider:
-    description: "Workload Identity Provider"
+    description: "Workload Identity Provider for Google Cloud"
     required: false
     default: ""
 
   service_account:
-    description: "Service Account"
+    description: "Service Account for Google Cloud, used with Workload Identity"
     required: false
     default: ""
 
