@@ -26,3 +26,14 @@ This action's job is to build a Docker image, and then push it to GCP's Artifact
 
 - Key-value pairs that will be exported in docker build-args command.
 
+##### workload_identity_provider
+
+- This is the Workload Identity Provider for Google Cloud.
+
+##### service_account
+
+- This is the Service Account for Google Cloud, used with Workload Identity.
+
+##### enable_cache
+
+- This is the enable_cache for Docker build caching.
