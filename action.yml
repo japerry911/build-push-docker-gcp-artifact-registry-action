@@ -50,11 +50,15 @@ runs:
       with:
         workload_identity_provider: ${{ inputs.workload_identity_provider }}
         service_account: ${{ inputs.service_account }}
-    
-    - name: Configure Docker to use gcloud as credential helper
+        token_format: access_token
+
+    - name: Login to Artifact Registry with Workload Identity
       if: ${{ inputs.gcp_credentials_json == '' }}
-      shell: bash
-      run: gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+      uses: docker/login-action@v3
+      with:
+        registry: us-central1-docker.pkg.dev
+        username: oauth2accesstoken
+        password: ${{ steps.auth.outputs.access_token }}
     
     - name: Login to Artifact Registry with JSON key
       if: ${{ inputs.gcp_credentials_json != '' }}
