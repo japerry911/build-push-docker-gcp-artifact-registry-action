@@ -45,6 +45,7 @@ runs:
   using: composite
   steps:
     - name: Authenticate to Google Cloud using Workload Identity
+      id: auth
       if: ${{ inputs.gcp_credentials_json == '' }}
       uses: google-github-actions/auth@v2
       with:
